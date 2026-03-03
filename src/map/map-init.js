@@ -24,7 +24,9 @@ export function initMap(containerId, initialCenter, initialZoom, initialTileUrl)
 		zoomControl: false,
 		attributionControl: false,
 		scrollWheelZoom: 'center',
-		touchZoom: 'center'
+		touchZoom: 'center',
+		zoomSnap: 0.1,
+		zoomDelta: 0.1,
 	}).setView(initialCenter, initialZoom);
 
 	tileLayer = L.tileLayer(initialTileUrl, {
@@ -169,9 +171,10 @@ function initArtisticMap(containerId, center, zoom) {
 
 export function updateArtisticStyle(theme) {
 	if (!artisticMap) return;
-	if (currentArtisticThemeName === theme.name) return;
+	const cacheKey = `${theme.name}:${state.showLabels}:${state.showBoundaries}:${state.boundaryWidth}`;
+	if (currentArtisticThemeName === cacheKey) return;
 
-	currentArtisticThemeName = theme.name;
+	currentArtisticThemeName = cacheKey;
 	const style = generateMapLibreStyle(theme);
 
 	if (styleChangeInProgress) {

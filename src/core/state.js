@@ -48,6 +48,8 @@ export const defaultState = {
 	overlayY: 0.85,
 	showCountry: true,
 	showCoords: true,
+	showBoundaries: false,
+	boundaryWidth: 1,
 };
 
 export const state = { ...defaultState };
@@ -89,7 +91,9 @@ const SAVED_KEYS = [
 	'overlayX',
 	'overlayY',
 	'showCountry',
-	'showCoords'
+	'showCoords',
+	'showBoundaries',
+	'boundaryWidth'
 ];
 
 function loadSettings() {

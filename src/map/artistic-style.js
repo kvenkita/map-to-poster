@@ -1,9 +1,12 @@
 import { state } from '../core/state.js';
+import { hexToRgba } from '../core/utils.js';
 
 export function generateMapLibreStyle(theme) {
+	const boundaryColor = theme.boundary || hexToRgba(theme.text || '#888888', 0.5);
 	const style = {
 		version: 8,
 		names: theme.name,
+		glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
 		sources: {
 			openfreemap: {
 				type: 'vector',
@@ -90,6 +93,27 @@ export function generateMapLibreStyle(theme) {
 				paint: { 'line-color': theme.road_motorway, 'line-width': 2.0 }
 			},
 			{
+				id: 'boundary-city',
+				source: 'openfreemap',
+				'source-layer': 'boundary',
+				type: 'line',
+				filter: ['all',
+					['>=', ['get', 'admin_level'], 6],
+					['<=', ['get', 'admin_level'], 9],
+					['!=', ['get', 'maritime'], 1]
+				],
+				layout: {
+					'line-join': 'round',
+					'line-cap': 'round',
+					'visibility': state.showBoundaries ? 'visible' : 'none',
+				},
+				paint: {
+					'line-color': boundaryColor,
+					'line-width': state.boundaryWidth || 1,
+					'line-dasharray': [3, 2],
+				}
+			},
+			{
 				id: 'route-line-casing',
 				source: 'route-source',
 				type: 'line',
@@ -115,6 +139,46 @@ export function generateMapLibreStyle(theme) {
 				paint: {
 					'line-color': theme.route || '#EF4444',
 					'line-width': 4
+				}
+			},
+			{
+				id: 'place-label-city',
+				source: 'openfreemap',
+				'source-layer': 'place',
+				type: 'symbol',
+				filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'state']]],
+				layout: {
+					'text-field': ['get', 'name'],
+					'text-font': ['Noto Sans Bold', 'Noto Sans Regular'],
+					'text-size': ['interpolate', ['linear'], ['zoom'], 8, 11, 14, 15],
+					'text-anchor': 'center',
+					'text-max-width': 8,
+					'visibility': state.showLabels ? 'visible' : 'none',
+				},
+				paint: {
+					'text-color': theme.text || '#000000',
+					'text-halo-color': theme.bg || '#ffffff',
+					'text-halo-width': 1.5,
+				}
+			},
+			{
+				id: 'place-label-suburb',
+				source: 'openfreemap',
+				'source-layer': 'place',
+				type: 'symbol',
+				filter: ['in', ['get', 'class'], ['literal', ['suburb', 'quarter', 'neighbourhood', 'village']]],
+				layout: {
+					'text-field': ['get', 'name'],
+					'text-font': ['Noto Sans Regular', 'Noto Sans Bold'],
+					'text-size': ['interpolate', ['linear'], ['zoom'], 10, 9, 14, 12],
+					'text-anchor': 'center',
+					'text-max-width': 6,
+					'visibility': state.showLabels ? 'visible' : 'none',
+				},
+				paint: {
+					'text-color': theme.text || '#000000',
+					'text-halo-color': theme.bg || '#ffffff',
+					'text-halo-width': 1,
 				}
 			}
 		]

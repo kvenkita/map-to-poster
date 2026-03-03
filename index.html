@@ -271,6 +271,20 @@
 							</div>
 						</div>
 						<p id="artistic-desc" class="text-[10px] text-slate-400 italic px-1"></p>
+						<div id="boundaries-control" class="flex items-center justify-between">
+							<span class="label-sm mb-0">Show City Boundaries</span>
+							<label class="relative inline-flex items-center cursor-pointer">
+								<input type="checkbox" id="show-boundaries-toggle" class="sr-only peer">
+								<div class="toggle-pill"></div>
+							</label>
+						</div>
+						<div id="boundary-width-control" class="hidden">
+							<div class="flex justify-between items-center mb-2">
+								<span class="label-sm mb-0">Line Thickness</span>
+								<span id="boundary-width-value" class="text-xs font-bold text-accent bg-accent-light px-2 py-0.5 rounded-full">1px</span>
+							</div>
+							<input type="range" id="boundary-width-slider" min="0.5" max="5" step="0.5" value="1" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-accent" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -287,7 +301,7 @@
 							<span class="label-sm mb-0">Perspective Zoom</span>
 							<span id="zoom-value" class="text-xs font-bold text-accent bg-accent-light px-2 py-0.5 rounded-full">12</span>
 						</div>
-						<input type="range" id="zoom-slider" min="1" max="18" step="1" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-accent" />
+						<input type="range" id="zoom-slider" min="1" max="18" step="0.1" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-accent" />
 					</div>
 
 					<div id="overlay-controls" class="mt-4 space-y-4">
@@ -840,6 +854,20 @@
 								<input type="text" id="ct-parks-hex" maxlength="7" class="text-xs font-mono text-slate-700 bg-transparent border-0 outline-none w-full p-0" placeholder="#111122" />
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<div class="space-y-2">
+					<p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Boundaries</p>
+					<div class="grid grid-cols-2 gap-2">
+						<div class="flex items-center gap-2.5 p-3 bg-slate-50 rounded-xl">
+							<input type="color" id="ct-boundary" value="#888888" class="w-9 h-9 rounded-lg cursor-pointer shrink-0 border-0 p-0" />
+							<div class="min-w-0">
+								<div class="text-[9px] font-black text-slate-400 uppercase tracking-wider">City Boundary</div>
+								<input type="text" id="ct-boundary-hex" maxlength="7" class="text-xs font-mono text-slate-700 bg-transparent border-0 outline-none w-full p-0" placeholder="#888888" />
+							</div>
+						</div>
+						<div></div>
 					</div>
 				</div>
 

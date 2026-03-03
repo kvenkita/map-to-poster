@@ -99,6 +99,10 @@ export function setupControls() {
 	}
 
 	const labelsToggle = document.getElementById('show-labels-toggle');
+	const boundariesToggle = document.getElementById('show-boundaries-toggle');
+	const boundaryWidthSlider = document.getElementById('boundary-width-slider');
+	const boundaryWidthValue = document.getElementById('boundary-width-value');
+	const boundaryWidthControl = document.getElementById('boundary-width-control');
 	const markerToggle = document.getElementById('show-marker-toggle');
 	const routeToggle = document.getElementById('show-route-toggle');
 	const markerSettings = document.getElementById('marker-settings');
@@ -246,6 +250,7 @@ export function setupControls() {
 		{ id: 'ct-road-residential', key: 'road_residential' },
 		{ id: 'ct-road-default', key: 'road_default' },
 		{ id: 'ct-route', key: 'route' },
+		{ id: 'ct-boundary', key: 'boundary' },
 	];
 
 	CT_FIELDS.forEach(({ id }) => {
@@ -725,7 +730,7 @@ export function setupControls() {
 	});
 
 	zoomSlider.addEventListener('input', (e) => {
-		const zoom = parseInt(e.target.value);
+		const zoom = parseFloat(e.target.value);
 		updateState({ zoom });
 		updateMapPosition(undefined, undefined, zoom);
 	});
@@ -765,6 +770,30 @@ export function setupControls() {
 	if (labelsToggle) {
 		labelsToggle.addEventListener('change', (e) => {
 			updateState({ showLabels: e.target.checked });
+			if (state.renderMode === 'artistic') {
+				updateArtisticStyle(getSelectedArtisticTheme());
+			}
+		});
+	}
+
+	if (boundariesToggle) {
+		boundariesToggle.addEventListener('change', (e) => {
+			updateState({ showBoundaries: e.target.checked });
+			if (boundaryWidthControl) boundaryWidthControl.classList.toggle('hidden', !e.target.checked);
+			if (state.renderMode === 'artistic') {
+				updateArtisticStyle(getSelectedArtisticTheme());
+			}
+		});
+	}
+
+	if (boundaryWidthSlider) {
+		boundaryWidthSlider.addEventListener('input', (e) => {
+			const val = parseFloat(e.target.value);
+			updateState({ boundaryWidth: val });
+			if (boundaryWidthValue) boundaryWidthValue.textContent = `${val}px`;
+			if (state.renderMode === 'artistic') {
+				updateArtisticStyle(getSelectedArtisticTheme());
+			}
 		});
 	}
 
@@ -1031,7 +1060,7 @@ export function setupControls() {
 		latInput.value = currentState.lat.toFixed(6);
 		lonInput.value = currentState.lon.toFixed(6);
 		zoomSlider.value = currentState.zoom;
-		zoomValue.textContent = currentState.zoom;
+		zoomValue.textContent = Number.isInteger(currentState.zoom) ? currentState.zoom : currentState.zoom.toFixed(1);
 
 		if (currentState.renderMode === 'tile') {
 			modeTile.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-accent text-white shadow-sm';
@@ -1044,7 +1073,7 @@ export function setupControls() {
 			modeArtistic.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-accent text-white shadow-sm';
 			if (standardThemeConfig) standardThemeConfig.classList.add('hidden');
 			if (artisticThemeConfig) artisticThemeConfig.classList.remove('hidden');
-			if (labelsControl) labelsControl.classList.add('hidden');
+			if (labelsControl) labelsControl.classList.remove('hidden');
 		}
 
 		themeSelect.value = currentState.theme;
@@ -1081,6 +1110,10 @@ export function setupControls() {
 		artisticDesc.textContent = artisticTheme.description;
 
 		if (labelsToggle) labelsToggle.checked = !!currentState.showLabels;
+		if (boundariesToggle) boundariesToggle.checked = !!currentState.showBoundaries;
+		if (boundaryWidthControl) boundaryWidthControl.classList.toggle('hidden', !currentState.showBoundaries);
+		if (boundaryWidthSlider) boundaryWidthSlider.value = currentState.boundaryWidth || 1;
+		if (boundaryWidthValue) boundaryWidthValue.textContent = `${currentState.boundaryWidth || 1}px`;
 		if (markerToggle) {
 			markerToggle.checked = !!currentState.showMarker;
 			const settings = document.getElementById('marker-settings');
@@ -1140,6 +1173,10 @@ export function setupControls() {
 		if (customH) customH.value = currentState.height;
 
 		if (labelsToggle) labelsToggle.checked = !!currentState.showLabels;
+		if (boundariesToggle) boundariesToggle.checked = !!currentState.showBoundaries;
+		if (boundaryWidthControl) boundaryWidthControl.classList.toggle('hidden', !currentState.showBoundaries);
+		if (boundaryWidthSlider) boundaryWidthSlider.value = currentState.boundaryWidth || 1;
+		if (boundaryWidthValue) boundaryWidthValue.textContent = `${currentState.boundaryWidth || 1}px`;
 		if (markerToggle) markerToggle.checked = !!currentState.showMarker;
 		if (markerSettings) {
 			if (currentState.showMarker) markerSettings.classList.remove('hidden');
