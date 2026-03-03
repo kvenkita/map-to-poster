@@ -255,6 +255,22 @@ export const artisticThemes = {
 		road_default: "#CA8A04",
 		route: "#3B82F6"
 	},
+	holi_burst: {
+		name: "Holi Burst",
+		description: "Explosive festival of colors — every road a different cloud of vibrant powder",
+		bg: "#FFFAF0",
+		text: "#1A0A2E",
+		water: "#29B6F6",
+		parks: "#66BB6A",
+		road_motorway: "#FF1744",
+		road_primary: "#FF9100",
+		road_secondary: "#FFD600",
+		road_tertiary: "#00E676",
+		road_residential: "#E040FB",
+		road_default: "#FF9100",
+		route: "#00B0FF",
+		boundary: "#FF6D00"
+	},
 	lavender_mist: {
 		name: "Lavender Mist",
 		description: "Soft purples and muted greys - dreamy cartography",
@@ -285,6 +301,22 @@ export const artisticThemes = {
 		road_default: "#4ADE80",
 		route: "#EF4444"
 	},
+	matrix_code: {
+		name: "Matrix Code",
+		description: "Cascading phosphor green on pitch black — enter the simulation",
+		bg: "#000000",
+		text: "#00FF41",
+		water: "#001408",
+		parks: "#002810",
+		road_motorway: "#00FF41",
+		road_primary: "#00D936",
+		road_secondary: "#00A82A",
+		road_tertiary: "#007A1F",
+		road_residential: "#004C12",
+		road_default: "#00A82A",
+		route: "#FFFFFF",
+		boundary: "#33FF57"
+	},
 	midnight_neon: {
 		name: "Midnight Neon",
 		description: "Black ink nights with neon accents for dramatic contrast",
@@ -299,6 +331,22 @@ export const artisticThemes = {
 		road_residential: "#6EE7B7",
 		road_default: "#00E5FF",
 		route: "#FFFF00"
+	},
+	monet_garden: {
+		name: "Monet's Garden",
+		description: "Impressionist blues, mauves and sage greens from the water lily ponds at Giverny",
+		bg: "#EEF3F8",
+		text: "#2A3C6E",
+		water: "#5B8FC2",
+		parks: "#7A9E6F",
+		road_motorway: "#2C6F8A",
+		road_primary: "#8B6BA8",
+		road_secondary: "#C4956A",
+		road_tertiary: "#9EB8A0",
+		road_residential: "#D4C9B8",
+		road_default: "#7A9EB8",
+		route: "#C45C8A",
+		boundary: "#8B6BA8"
 	},
 	monochrome_pro: {
 		name: "Monochrome Pro",
@@ -330,6 +378,22 @@ export const artisticThemes = {
 		road_default: "#4D7C0F",
 		route: "#F472B6"
 	},
+	nautical_chart: {
+		name: "Nautical Chart",
+		description: "Aged vellum and navy ink from 18th century maritime exploration charts",
+		bg: "#EDE6D0",
+		text: "#1B3A5C",
+		water: "#7BAED0",
+		parks: "#9BB888",
+		road_motorway: "#1B3A5C",
+		road_primary: "#2E5D8E",
+		road_secondary: "#4A85B8",
+		road_tertiary: "#76A8CF",
+		road_residential: "#C2D8EA",
+		road_default: "#4A85B8",
+		route: "#C0392B",
+		boundary: "#6B4C11"
+	},
 	paper_heritage: {
 		name: "Paper Heritage",
 		description: "Soft sepia tones and inked roads for vintage prints",
@@ -359,6 +423,22 @@ export const artisticThemes = {
 		road_residential: "#E0F2FE",
 		road_default: "#22D3EE",
 		route: "#F97316"
+	},
+	pastel_dreams: {
+		name: "Pastel Dreams",
+		description: "Gentle candy hues on warm white — like a watercolor sketchbook left in the sun",
+		bg: "#FEFCF9",
+		text: "#4A3F5C",
+		water: "#B8D8F0",
+		parks: "#C2E5C2",
+		road_motorway: "#F4AABE",
+		road_primary: "#F9C88A",
+		road_secondary: "#AAD4EE",
+		road_tertiary: "#C8B0DE",
+		road_residential: "#F0D8B8",
+		road_default: "#B8CDE8",
+		route: "#E88AAA",
+		boundary: "#C8B0DE"
 	},
 	retro_synth: {
 		name: "Retro Synth",
@@ -464,6 +544,22 @@ export const artisticThemes = {
 		road_residential: "#FFECEC",
 		road_default: "#FF6B6B",
 		route: "#10B981"
+	},
+	vintage_parchment: {
+		name: "Cartographer's Parchment",
+		description: "Hand-inked sepia roads on aged parchment from the golden age of exploration",
+		bg: "#F4EDD8",
+		text: "#2C1810",
+		water: "#AFC9DC",
+		parks: "#BFD0A0",
+		road_motorway: "#4A2210",
+		road_primary: "#6B3822",
+		road_secondary: "#8B5A36",
+		road_tertiary: "#B07848",
+		road_residential: "#D4A875",
+		road_default: "#8B5A36",
+		route: "#8B0000",
+		boundary: "#7A5C1E"
 	},
 	volcanic_ash: {
 		name: "Volcanic Ash",
