@@ -17,6 +17,7 @@ MapToPoster JS is a professional-grade, client-side web application designed to 
 - **Precision Geocoding**: Instant global location search powered by the Nominatim API.
 - **Dynamic Markers**: Place, drag, and style multiple location indicators with various icons and adjustable sizes.
 - **Custom Travel Paths**: Visualize journeys or specific itineraries with integrated route plotting and dynamic path fetching.
+- **City Boundaries Overlay**: Toggle dashed administrative boundaries (city/municipality level) in Artistic mode with an adjustable line thickness slider and per-theme boundary color support.
 - **Mat / Passepartout Framing**: Apply a classic gallery-style framing effect with customizable width, border thickness, and opacity.
 - **Elegant Typography**: A curated selection of premium fonts with full support for custom text and coordinate overrides.
 - **Draggable UI Overlay**: A fluid city-label overlay with automatic edge-clamping and symmetric safety padding.
@@ -38,20 +39,40 @@ Based on high-quality raster tiles from established providers:
 - **Satellite View**: High-resolution imagery (Esri World Imagery).
 
 ### Artistic Themes (MapLibre GL)
-Hand-crafted vector styles with procedural colors:
-- **Arctic Frost**: Pale blues and crisp whites.
-- **Aurora Glow**: Iridescent greens and pinks.
-- **Cyber Glitch**: Neon accents for a digital look.
-- **Paper Heritage**: Vintage sepia tones and inked roads.
-- **Volcanic Ash**: Deep charcoal with glowing ember accents.
-- **Blueprint Classic**: Technical cyanotype style for an architectural feel.
-- ...and many more unique themes like Retro Synth, Charcoal Sketch, and Sakura Bloom.
+Hand-crafted vector styles with procedural colors. 35+ themes across a wide range of moods:
 
-### Customizing Themes
-You can easily add your own artistic themes by editing [src/core/artistic-themes.js](src/core/artistic-themes.js):
+| Theme | Description |
+|-------|-------------|
+| **Arctic Frost** | Pale blues and crisp whites for a frozen landscape |
+| **Aurora Glow** | Iridescent greens and pinks inspired by northern lights |
+| **Blueprint Classic** | Technical cyanotype style for an architectural feel |
+| **Cartographer's Parchment** | Hand-inked sepia roads on aged parchment from the golden age of exploration |
+| **Charcoal Sketch** | The look of graphite on textured heavy-grain paper |
+| **Cyber Noir** | Dark background with vibrant neon stripe palette |
+| **Holi Burst** | Explosive festival of colors — every road a different cloud of vibrant powder |
+| **Mangrove Maze** | Murky swamp tones and brackish water for coastal wetlands |
+| **Matrix Code** | Cascading phosphor green on pitch black — enter the simulation |
+| **Monet's Garden** | Impressionist blues, mauves and sage greens from the water lily ponds at Giverny |
+| **Nautical Chart** | Aged vellum and navy ink from 18th century maritime exploration charts |
+| **Paper Heritage** | Soft sepia tones and inked roads for vintage prints |
+| **Pastel Dreams** | Gentle candy hues on warm white — like a watercolor sketchbook left in the sun |
+| **Retro Synth** | 80s outrun aesthetic with neon magentas and electric blues |
+| **Royal Velvet** | Deep regal purples paired with rich metallic gold |
+| **Sakura Bloom** | Soft cherry blossom pinks and delicate cream tones |
+| **Volcanic Ash** | Deep charcoal with glowing ember accents |
+| *...and 20+ more* | Arid Canyon, Autumn Whisper, Copper Patina, Dark Gold, Desert Mirage, Emerald Valley, Forest Shadow, Golden Era, Lavender Mist, Midnight Neon, Mint Fizz, Monochrome Pro, Riverine Flow, Rustic Clay, Solar Flare, Steel Metropolis, Sunset Blush, and others |
 
-1. Open `artistic-themes.js`.
-2. Add a new object to the `artisticThemes` export:
+### Custom Themes
+Use the **Custom Theme** editor (accessible from the Artistic mode panel) to create and save your own themes directly in the browser. You can set individual colors for:
+
+- Background, Text, Water, Parks
+- Boundary lines (city/municipality level)
+- All five road classes (Motorway → Default)
+- Route and marker color
+
+### Adding Themes via Code
+You can also add themes by editing [src/core/artistic-themes.js](src/core/artistic-themes.js):
+
 ```javascript
 your_theme_key: {
     name: "Your Theme Name",
@@ -63,9 +84,14 @@ your_theme_key: {
     road_motorway: "#HEXCODE",
     road_primary: "#HEXCODE",
     road_secondary: "#HEXCODE",
-    road_default: "#HEXCODE"
+    road_tertiary: "#HEXCODE",
+    road_residential: "#HEXCODE",
+    road_default: "#HEXCODE",
+    route: "#HEXCODE",
+    boundary: "#HEXCODE"  // optional — falls back to 50% opacity text color
 }
 ```
+
 The application will automatically pick up the new theme and display it in the selection menu.
 
 ## 🛠️ Tech Stack
@@ -120,6 +146,7 @@ Follow these steps to get a local copy up and running.
 4. **Dynamic Asset Integration**: Manages custom GeoJSON routing and multi-marker instances with interactive drag-and-drop support across both map engines.
 5. **Mat Framing Layer**: Implements a virtual "Mat/Passepartout" interface with customizable inset spacing and inner borders for a gallery-style finish.
 6. **High-Fidelity Rendering Pipeline**: Captured exports utilize a multi-stage process in [src/core/export.js](src/core/export.js) to generate high-resolution map snapshots using `html2canvas` and the `onclone` callback.
+7. **City Boundaries Layer**: A togglable `boundary` source-layer renders dashed administrative lines (admin levels 6–9, maritime borders excluded) with per-theme color derivation and an adjustable thickness slider.
 
 ## 🤝 Credits
 
