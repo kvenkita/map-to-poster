@@ -98,8 +98,8 @@ export function generateMapLibreStyle(theme) {
 				'source-layer': 'boundary',
 				type: 'line',
 				filter: ['all',
-					['>=', ['get', 'admin_level'], 6],
-					['<=', ['get', 'admin_level'], 9],
+					['==', ['get', 'admin_level'], 8],
+					['==', ['get', 'border_type'], 'city'],
 					['!=', ['get', 'maritime'], 1]
 				],
 				layout: {
