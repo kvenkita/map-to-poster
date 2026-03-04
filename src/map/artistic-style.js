@@ -99,7 +99,6 @@ export function generateMapLibreStyle(theme) {
 				type: 'line',
 				filter: ['all',
 					['==', ['get', 'admin_level'], 8],
-					['==', ['get', 'border_type'], 'city'],
 					['!=', ['get', 'maritime'], 1]
 				],
 				layout: {
