@@ -12,6 +12,10 @@ export function generateMapLibreStyle(theme) {
 				type: 'vector',
 				url: 'https://tiles.openfreemap.org/planet'
 			},
+			'boundary-geojson': {
+				type: 'geojson',
+				data: state.boundaryGeoJSON || { type: 'FeatureCollection', features: [] }
+			},
 			'route-source': {
 				type: 'geojson',
 				data: {
@@ -94,13 +98,8 @@ export function generateMapLibreStyle(theme) {
 			},
 			{
 				id: 'boundary-city',
-				source: 'openfreemap',
-				'source-layer': 'boundary',
+				source: 'boundary-geojson',
 				type: 'line',
-				filter: ['all',
-					['==', ['get', 'admin_level'], 8],
-					['!=', ['get', 'maritime'], 1]
-				],
 				layout: {
 					'line-join': 'round',
 					'line-cap': 'round',

@@ -24,6 +24,17 @@ export async function searchLocation(query, opts = {}) {
 	}
 }
 
+export async function fetchCityBoundary(lat, lon) {
+	try {
+		const url = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lon}&polygon_geojson=1&zoom=10`;
+		const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+		const data = await res.json();
+		return (data && data.features && data.features[0]) ? data.features[0] : null;
+	} catch (e) {
+		return null;
+	}
+}
+
 export function formatCoords(lat, lon) {
 	const latDir = lat >= 0 ? 'N' : 'S';
 	const lonDir = lon >= 0 ? 'E' : 'W';

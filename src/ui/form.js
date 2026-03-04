@@ -11,9 +11,10 @@ import {
 	updateMapTheme,
 	updateMarkerStyles,
 	updateRouteStyles,
-	updateRouteGeometry
+	updateRouteGeometry,
+	updateBoundarySource
 } from '../map/map-init.js';
-import { searchLocation, formatCoords } from '../map/geocoder.js';
+import { searchLocation, formatCoords, fetchCityBoundary } from '../map/geocoder.js';
 
 
 export function setupControls() {
@@ -619,6 +620,14 @@ export function setupControls() {
 			});
 		}
 
+		if (state.showBoundaries) {
+			fetchCityBoundary(lat, lon).then(geojson => {
+				updateBoundarySource(geojson);
+			});
+		} else {
+			state.boundaryGeoJSON = null;
+		}
+
 		searchInput.value = name;
 		searchResults.classList.add('hidden');
 		lastSelectionAt = Date.now();
@@ -777,9 +786,14 @@ export function setupControls() {
 	}
 
 	if (boundariesToggle) {
-		boundariesToggle.addEventListener('change', (e) => {
-			updateState({ showBoundaries: e.target.checked });
-			if (boundaryWidthControl) boundaryWidthControl.classList.toggle('hidden', !e.target.checked);
+		boundariesToggle.addEventListener('change', async (e) => {
+			const enabled = e.target.checked;
+			if (boundaryWidthControl) boundaryWidthControl.classList.toggle('hidden', !enabled);
+			if (enabled && !state.boundaryGeoJSON) {
+				const geojson = await fetchCityBoundary(state.lat, state.lon);
+				state.boundaryGeoJSON = geojson;
+			}
+			updateState({ showBoundaries: enabled });
 			if (state.renderMode === 'artistic') {
 				updateArtisticStyle(getSelectedArtisticTheme());
 			}

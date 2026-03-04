@@ -240,6 +240,15 @@ export function waitForArtisticIdle(timeout = 30000) {
 	});
 }
 
+export function updateBoundarySource(geojson) {
+	state.boundaryGeoJSON = geojson;
+	if (!artisticMap || !state.showBoundaries) return;
+	try {
+		const src = artisticMap.getSource('boundary-geojson');
+		if (src) src.setData(geojson || { type: 'FeatureCollection', features: [] });
+	} catch (e) {}
+}
+
 export function getMapInstance() { return map; }
 export function getArtisticMapInstance() { return artisticMap; }
 

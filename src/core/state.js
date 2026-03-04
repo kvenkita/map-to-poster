@@ -50,6 +50,7 @@ export const defaultState = {
 	showCoords: true,
 	showBoundaries: false,
 	boundaryWidth: 1,
+	boundaryGeoJSON: null,
 };
 
 export const state = { ...defaultState };
